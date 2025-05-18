@@ -1,1 +1,54 @@
+import java.util.Scanner;
+
+public class MainArbolTaller {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArbolBinario arbol = new ArbolBinario();
+        int opcion;
+
+        do {
+            System.out.println("\nMenú:");
+            System.out.println("1. Agregar un nodo");
+            System.out.println("2. Recorrido PreOrden");
+            System.out.println("3. Recorrido InOrden");
+            System.out.println("4. Recorrido PostOrden");
+            System.out.println("5. Buscar un nodo");
+            System.out.println("6. Mostrar la altura del árbol");
+            System.out.println("7. Contar los nodos hoja");
+            System.out.println("8. Borrar un nodo");
+            System.out.println("9. Vaciar el árbol");
+            System.out.println("10. Salir");
+            System.out.print("Selecciona una opción: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1 -> {
+                    System.out.print("Ingresa el valor del nodo: ");
+                    int valor = scanner.nextInt();
+                    arbol.agregarNodo(valor);
+                }
+                case 2 -> arbol.recorrerPreOrden();
+                case 3 -> arbol.recorrerInOrden();
+                case 4 -> arbol.recorrerPostOrden();
+                case 5 -> {
+                    System.out.print("Ingresa el valor a buscar: ");
+                    int buscarValor = scanner.nextInt();
+                    System.out.println("Nodo encontrado: " + arbol.buscarNodo(buscarValor));
+                }
+                case 6 -> System.out.println("Altura del árbol: " + arbol.obtenerAltura());
+                case 7 -> System.out.println("Cantidad de nodos hoja: " + arbol.contarNodosHoja());
+                case 8 -> {
+                    System.out.print("Ingresa el valor del nodo a borrar: ");
+                    int borrarValor = scanner.nextInt();
+                    arbol.borrarNodo(borrarValor);
+                }
+                case 9 -> arbol.vaciarArbol();
+                case 10 -> System.out.println("Saliendo del programa.");
+                default -> System.out.println("Opción no válida.");
+            }
+        } while (opcion != 10);
+
+        scanner.close();
+    }
+}
 
