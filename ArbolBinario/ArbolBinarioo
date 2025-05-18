@@ -1,1 +1,130 @@
-Clase árbol binario
+public class ArbolBinario {
+    private Nodo raiz;
+
+    public void agregarNodo(int valor) {
+        raiz = agregarRecursivo(raiz, valor);
+    }
+
+    private Nodo agregarRecursivo(Nodo actual, int valor) {
+        if (actual == null) {
+            return new Nodo(valor);
+        }
+        if (valor < actual.valor) {
+            actual.izquierdo = agregarRecursivo(actual.izquierdo, valor);
+        } else if (valor > actual.valor) {
+            actual.derecho = agregarRecursivo(actual.derecho, valor);
+        }
+        return actual;
+    }
+
+    public void recorrerPreOrden() {
+        recorrerPreOrden(raiz);
+        System.out.println();
+    }
+
+    private void recorrerPreOrden(Nodo nodo) {
+        if (nodo != null) {
+            System.out.print(nodo.valor + " ");
+            recorrerPreOrden(nodo.izquierdo);
+            recorrerPreOrden(nodo.derecho);
+        }
+    }
+
+    public void recorrerInOrden() {
+        recorrerInOrden(raiz);
+        System.out.println();
+    }
+
+    private void recorrerInOrden(Nodo nodo) {
+        if (nodo != null) {
+            recorrerInOrden(nodo.izquierdo);
+            System.out.print(nodo.valor + " ");
+            recorrerInOrden(nodo.derecho);
+        }
+    }
+
+    public void recorrerPostOrden() {
+        recorrerPostOrden(raiz);
+        System.out.println();
+    }
+
+    private void recorrerPostOrden(Nodo nodo) {
+        if (nodo != null) {
+            recorrerPostOrden(nodo.izquierdo);
+            recorrerPostOrden(nodo.derecho);
+            System.out.print(nodo.valor + " ");
+        }
+    }
+
+    public boolean buscarNodo(int valor) {
+        return buscarRecursivo(raiz, valor);
+    }
+
+    private boolean buscarRecursivo(Nodo actual, int valor) {
+        if (actual == null) {
+            return false;
+        }
+        if (actual.valor == valor) {
+            return true;
+        }
+        return valor < actual.valor ? buscarRecursivo(actual.izquierdo, valor) : buscarRecursivo(actual.derecho, valor);
+    }
+
+    public int obtenerAltura() {
+        return calcularAltura(raiz);
+    }
+
+    private int calcularAltura(Nodo nodo) {
+        if (nodo == null) {
+            return -1;
+        }
+        return Math.max(calcularAltura(nodo.izquierdo), calcularAltura(nodo.derecho)) + 1;
+    }
+
+    public int contarNodosHoja() {
+        return contarHojas(raiz);
+    }
+
+    private int contarHojas(Nodo nodo) {
+        if (nodo == null) {
+            return 0;
+        }
+        if (nodo.izquierdo == null && nodo.derecho == null) {
+            return 1;
+        }
+        return contarHojas(nodo.izquierdo) + contarHojas(nodo.derecho);
+    }
+
+    public void borrarNodo(int valor) {
+        raiz = borrarRecursivo(raiz, valor);
+    }
+
+    private Nodo borrarRecursivo(Nodo actual, int valor) {
+        if (actual == null) {
+            return null;
+        }
+        if (valor < actual.valor) {
+            actual.izquierdo = borrarRecursivo(actual.izquierdo, valor);
+        } else if (valor > actual.valor) {
+            actual.derecho = borrarRecursivo(actual.derecho, valor);
+        } else {
+            if (actual.izquierdo == null) return actual.derecho;
+            if (actual.derecho == null) return actual.izquierdo;
+
+            actual.valor = encontrarMinimo(actual.derecho);
+            actual.derecho = borrarRecursivo(actual.derecho, actual.valor);
+        }
+        return actual;
+    }
+
+    private int encontrarMinimo(Nodo nodo) {
+        while (nodo.izquierdo != null) {
+            nodo = nodo.izquierdo;
+        }
+        return nodo.valor;
+    }
+
+    public void vaciarArbol() {
+        raiz = null;
+    }
+}
