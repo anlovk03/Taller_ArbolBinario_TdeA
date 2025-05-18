@@ -1,6 +1,7 @@
 public class ArbolBinario {
     private Nodo raiz;
 
+// Método para agregar un nodo al árbol
     public void agregarNodo(int valor) {
         raiz = agregarRecursivo(raiz, valor);
     }
@@ -56,6 +57,7 @@ public class ArbolBinario {
         }
     }
 
+ // Método para buscar un nodo en el árbol
     public boolean buscarNodo(int valor) {
         return buscarRecursivo(raiz, valor);
     }
@@ -70,6 +72,7 @@ public class ArbolBinario {
         return valor < actual.valor ? buscarRecursivo(actual.izquierdo, valor) : buscarRecursivo(actual.derecho, valor);
     }
 
+ // Método para calcular la altura del árbol
     public int obtenerAltura() {
         return calcularAltura(raiz);
     }
