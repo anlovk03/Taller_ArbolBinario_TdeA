@@ -1,5 +1,5 @@
 public class Nodo {
-    int valor;
+    int valor; // Almacena el dato del nodo
     Nodo izquierdo, derecho;
 
     public Nodo(int valor) {
